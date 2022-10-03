@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/products', function () {
     return view('frontend.products.all');
 });
+
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard.all');
+});
