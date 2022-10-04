@@ -8,6 +8,13 @@ use App\Models\Category;
 
 class CategoriesController extends Controller
 {
+
+    public function all()
+    {
+        $allCategories = Category::paginate(10);
+        return view('admin.categories.all', compact('allCategories'));
+    }
+
     public function create()
     {
         return view('admin.categories.create');
