@@ -35,4 +35,16 @@ class CategoriesController extends Controller
 
         return back()->with('success', 'دسته بندی ایجاد شد');
     }
+
+    public function delete(int $categoryId)
+    {
+        $category = Category::findOrFail($categoryId);
+        $deletedCategory = $category->delete();
+
+        if (!$deletedCategory) {
+            return back()->with('failed', 'دسته بندی حذف نشد!');
+        }
+
+        return back()->with('success', 'دسته بندی حذف شد');
+    }
 }

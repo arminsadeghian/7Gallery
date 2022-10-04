@@ -26,6 +26,9 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
+
+                @include('errors.message')
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -63,9 +66,17 @@
                                             <td>{{ $category['title'] }}</td>
                                             <td>{{ $category['created_at'] }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-default btn-icons"><i class="fa fa-edit"></i></a>
-                                                <a href="#" class="btn btn-default btn-icons"><i
-                                                        class="fa fa-trash"></i></a>
+                                                <a href="#" class="btn btn-default btn-icons">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('admin.categories.delete',$category->id) }}"
+                                                      method="post" style="display: inline">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-default btn-icons">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
