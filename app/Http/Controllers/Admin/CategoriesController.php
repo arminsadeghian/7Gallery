@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Categories\StoreRequest;
+use App\Http\Requests\Admin\Categories\UpdateRequest;
 use App\Models\Category;
 
 class CategoriesController extends Controller
@@ -47,4 +48,29 @@ class CategoriesController extends Controller
 
         return back()->with('success', 'دسته بندی حذف شد');
     }
+
+    public function edit(int $categoryId)
+    {
+        $category = Category::findOrFail($categoryId);
+        return view('admin.categories.edit', compact('category'));
+    }
+
+    public function update(UpdateRequest $request, int $categoryId)
+    {
+        $validatedData = $request->validated();
+
+        $category = Category::find($categoryId);
+
+        $updatedCategory = $category->update([
+            'title' => $validatedData['title'],
+            'slug' => $validatedData['slug'],
+        ]);
+
+        if (!$updatedCategory) {
+            return back()->with('failed', 'دسته بندی برزورسانی نشد');
+        }
+
+        return back()->with('success', 'دسته بندی برزورسانی شد');
+    }
+
 }
