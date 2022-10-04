@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/products', function () {
-    return view('frontend.products.all');
-});
+Route::prefix('admin/')->group(function () {
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard.all');
+    Route::prefix('categories/')->group(function () {
+        Route::get('create', [CategoriesController::class, 'create'])->name('admin.categories.create');
+        Route::post('', [CategoriesController::class, 'store'])->name('admin.categories.store');
+    });
+
 });
