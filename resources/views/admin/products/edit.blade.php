@@ -11,7 +11,7 @@
                     <div class="col-12">
                         <h1 class="m-0 text-dark">
                             <a class="nav-link drawer" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
-                            محصولات / افزودن
+                            محصولات / ویرایش
                             <a class="btn btn-primary float-left text-white py-2 px-4"
                                href="{{ route('admin.products.all') }}">بازگشت به
                                 صفحه محصولات</a>
@@ -41,7 +41,8 @@
                                             <div class="form-group">
                                                 <label>عنوان</label>
                                                 <input type="text" class="form-control" name="title"
-                                                       placeholder="نامک را وارد کنید">
+                                                       placeholder="نامک را وارد کنید"
+                                                       value="{{ $product->title }}">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -50,7 +51,7 @@
                                                 <select class="form-control" name="category_id">
                                                     @foreach($categories as $category)
                                                         <option
-                                                            value="{{ $category->id }}">{{ $category->title }}</option>
+                                                            value="{{ $category->id }}" {{ $category->id === $product->category_id ? 'selected' : '' }} >{{ $category->title }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -59,7 +60,8 @@
                                             <div class="form-group">
                                                 <label>قیمت</label>
                                                 <input type="text" class="form-control" name="price"
-                                                       placeholder="قیمت را وارد کنید">
+                                                       placeholder="قیمت را وارد کنید"
+                                                       value="{{ $product->price }}">
                                             </div>
                                         </div>
                                     </div>
@@ -68,18 +70,23 @@
                                             <div class="form-group">
                                                 <label>تصویر شاخص</label>
                                                 <input class="form-control" type="file" name="thumbnail_url">
+                                                <img src="/{{ $product->thumbnail_url  }}" alt=""
+                                                     style="width: 100px;margin-top: 10px">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>تصویر محصول</label>
                                                 <input class="form-control" type="file" name="demo_url">
+                                                <img src="/{{ $product->demo_url  }}" alt=""
+                                                     style="width: 100px;margin-top: 10px">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>سورس اصلی محصول</label>
                                                 <input class="form-control" type="file" name="source_url">
+                                                <a href="{{ route('admin.products.download.source', $product->id) }}" class="btn btn-default btn-icons" style="margin-top: 10px">دنلود سورس اصلی</a>
                                             </div>
                                         </div>
 
@@ -87,7 +94,7 @@
                                     <div class="form-group">
                                         <label>توضیحات</label>
                                         <textarea name="description"
-                                                  id="editor">لطفا متن مورد نظر خودتان را وارد کنید</textarea>
+                                                  id="editor">{{ $product->description }}</textarea>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

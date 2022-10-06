@@ -20,7 +20,9 @@ final class ImageUploader
 
         foreach ($images as $key => $image) {
             $fullPath = $path . $key . '_' . self::fileNameToHash($image);
-            self::upload($image, $fullPath, $diskType);
+            if (!is_null($image)) {
+                self::upload($image, $fullPath, $diskType);
+            }
             $imagesPath += [$key => $fullPath];
         }
 
