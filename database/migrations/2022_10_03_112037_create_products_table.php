@@ -23,9 +23,9 @@ return new class extends Migration {
 
             $table->string('title');
             $table->text('description');
-            $table->string('thumbnail_url');
-            $table->string('demo_url');
-            $table->string('source_url');
+            $table->string('thumbnail_url')->nullable();
+            $table->string('demo_url')->nullable();
+            $table->string('source_url')->nullable();
             $table->unsignedBigInteger('price');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
