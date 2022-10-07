@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PaymentsController;
-use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\ProductsController as AdminProductsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\ProductsController as HomeProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::prefix('')->group(function () {
+    Route::get('', [HomeController::class, 'index'])->name('home.products.all');
+    Route::get('{product_id}/show', [HomeProductsController::class, 'show'])->name('home.products.show');
+});
+
 Route::prefix('admin/')->group(function () {
 
     Route::prefix('categories/')->group(function () {
@@ -30,14 +37,14 @@ Route::prefix('admin/')->group(function () {
     });
 
     Route::prefix('products/')->group(function () {
-        Route::get('all', [ProductsController::class, 'all'])->name('admin.products.all');
-        Route::get('create', [ProductsController::class, 'create'])->name('admin.products.create');
-        Route::post('', [ProductsController::class, 'store'])->name('admin.products.store');
-        Route::get('{product_id}/download/demo', [ProductsController::class, 'downloadDemo'])->name('admin.products.download.demo');
-        Route::get('{product_id}/download/source', [ProductsController::class, 'downloadSource'])->name('admin.products.download.source');
-        Route::delete('{product_id}/delete', [ProductsController::class, 'delete'])->name('admin.products.delete');
-        Route::get('{product_id}/edit', [ProductsController::class, 'edit'])->name('admin.products.edit');
-        Route::put('{product_id}/update', [ProductsController::class, 'update'])->name('admin.products.update');
+        Route::get('all', [AdminProductsController::class, 'all'])->name('admin.products.all');
+        Route::get('create', [AdminProductsController::class, 'create'])->name('admin.products.create');
+        Route::post('', [AdminProductsController::class, 'store'])->name('admin.products.store');
+        Route::get('{product_id}/download/demo', [AdminProductsController::class, 'downloadDemo'])->name('admin.products.download.demo');
+        Route::get('{product_id}/download/source', [AdminProductsController::class, 'downloadSource'])->name('admin.products.download.source');
+        Route::delete('{product_id}/delete', [AdminProductsController::class, 'delete'])->name('admin.products.delete');
+        Route::get('{product_id}/edit', [AdminProductsController::class, 'edit'])->name('admin.products.edit');
+        Route::put('{product_id}/update', [AdminProductsController::class, 'update'])->name('admin.products.update');
     });
 
     Route::prefix('users/')->group(function () {
