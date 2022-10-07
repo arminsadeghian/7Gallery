@@ -39,38 +39,6 @@ class ProductsController extends Controller
             'owner_id' => $admin->id,
         ]);
 
-        try {
-            $basePath = 'products/' . $createdProduct->id . '/';
-
-            if (isset($validatedData['source_url'])) {
-                $sourceImageFullPath = $basePath . 'source_url_' . ImageUploader::fileNameToHash($validatedData['source_url']);
-            }
-
-            $images = [
-                'thumbnail_url' => $validatedData['thumbnail_url'],
-                'demo_url' => $validatedData['demo_url'],
-            ];
-
-            $imagesPath = ImageUploader::uploadMany($images, $basePath);
-
-            ImageUploader::upload($validatedData['source_url'], $sourceImageFullPath);
-
-            $updatedProduct = $createdProduct->update([
-                'thumbnail_url' => $imagesPath['thumbnail_url'],
-                'demo_url' => $imagesPath['demo_url'],
-                'source_url' => $sourceImageFullPath,
-            ]);
-
-            if (!$updatedProduct) {
-                throw new FileNotUploadException('تصاویر آپلود نشدند!');
-            }
-
-            return back()->with('success', 'محصول ایجاد شد');
-
-        } catch (FileNotUploadException $e) {
-            return back()->with('failed', $e->getMessage());
-        }
-
     }
 
     public function downloadDemo(int $productId)
@@ -115,6 +83,46 @@ class ProductsController extends Controller
             'price' => $validatedData['price'],
         ]);
 
+        return $this->uploadImage($product, $validatedData);
+
+    }
+
+    private function uploadImage($createdProduct, $validatedData)
+    {
+        try {
+            $basePath = 'products/' . $createdProduct->id . '/';
+            $sourceImageFullPath = null;
+            $data = [];
+
+            if (isset($validatedData['source_url'])) {
+                $sourceImageFullPath = $basePath . 'source_url_' . ImageUploader::fileNameToHash($validatedData['source_url']);
+                ImageUploader::upload($validatedData['source_url'], $sourceImageFullPath);
+                $data += ['source_url' => $sourceImageFullPath];
+            }
+
+            if (isset($validatedData['thumbnail_url'])) {
+                $fullPath = $basePath . 'thumbnail_url' . '_' . ImageUploader::fileNameToHash($validatedData['thumbnail_url']);
+                ImageUploader::upload($validatedData['thumbnail_url'], $fullPath, 'public_storage');
+                $data += ['thumbnail_url' => $fullPath];
+            }
+
+            if (isset($validatedData['demo_url'])) {
+                $fullPath = $basePath . 'demo_url' . '_' . ImageUploader::fileNameToHash($validatedData['demo_url']);
+                ImageUploader::upload($validatedData['demo_url'], $fullPath, 'public_storage');
+                $data += ['demo_url' => $fullPath];
+            }
+
+            $updatedProduct = $createdProduct->update($data);
+
+            if (!$updatedProduct) {
+                throw new FileNotUploadException('تصاویر آپلود نشدند!');
+            }
+
+            return back()->with('success', 'محصول آپدیت شد');
+
+        } catch (FileNotUploadException $e) {
+            return back()->with('failed', $e->getMessage());
+        }
     }
 
 }
