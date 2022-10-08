@@ -153,109 +153,29 @@
             <div class="wrap-slick2">
                 <div class="slick2">
 
-                    <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-pic hov-img0">
-                                <img src="images/product-01.jpg" alt="IMG-PRODUCT">
+                    @foreach($relatedProducts as $product)
+                        <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                            <!-- Block2 -->
+                            <div class="block2">
+                                <div class="block2-pic hov-img0">
+                                    <img src="/{{ $product->thumbnail_url }}" alt="IMG-PRODUCT">
+                                </div>
 
-                                <a href="#"
-                                   class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                    مشاهده سریع
-                                </a>
-                            </div>
+                                <div class="block2-txt flex-w flex-t p-t-14">
+                                    <div class="block2-txt-child1 flex-col-l ">
+                                        <a href="{{ route('home.products.show', $product->id) }}"
+                                           class="mtext-106 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                            {{ $product->title }}
+                                        </a>
 
-                            <div class="block2-txt flex-w flex-t p-t-14">
-                                <div class="block2-txt-child1 flex-col-l ">
-                                    <a href="/single.php" class="mtext-106 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                        کارت ویزیت فروشگاه
-                                    </a>
-
-                                    <span class="stext-105 cl3">
-									۱۳ هزار تومان
+                                        <span class="stext-105 cl3">
+									{{ number_format($product->price) }} تومان
 								</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-pic hov-img0">
-                                <img src="images/product-02.jpg" alt="IMG-PRODUCT">
-
-                                <a href="#"
-                                   class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                    مشاهده سریع
-                                </a>
-                            </div>
-
-                            <div class="block2-txt flex-w flex-t p-t-14">
-                                <div class="block2-txt-child1 flex-col-l ">
-                                    <a href="/single.php" class="mtext-106 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                        تراکت مشاور املاک
-                                    </a>
-
-                                    <span class="stext-105 cl3">
-									۳۴ هزار تومان
-								</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-pic hov-img0">
-                                <img src="images/product-03.jpg" alt="IMG-PRODUCT">
-
-                                <a href="#"
-                                   class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                    مشاهده سریع
-                                </a>
-                            </div>
-
-                            <div class="block2-txt flex-w flex-t p-t-14">
-                                <div class="block2-txt-child1 flex-col-l ">
-                                    <a href="/single.php" class="mtext-106 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                        وکتور کیف
-                                    </a>
-
-                                    <span class="stext-105 cl3">
-									۳ هزار تومان
-								</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-pic hov-img0">
-                                <img src="images/product-04.jpg" alt="IMG-PRODUCT">
-
-                                <a href="#"
-                                   class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                    مشاهده سریع
-                                </a>
-                            </div>
-
-                            <div class="block2-txt flex-w flex-t p-t-14">
-                                <div class="block2-txt-child1 flex-col-l ">
-                                    <a href="/single.php" class="mtext-106 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                        لوگو فروشگاه کامپیوتر
-                                    </a>
-
-                                    <span class="stext-105 cl3">
-									۹ هزار تومان
-								</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
 
                 </div>
             </div>
