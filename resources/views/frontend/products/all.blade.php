@@ -42,8 +42,11 @@
                             <i class="zmdi zmdi-search"></i>
                         </button>
 
-                        <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product"
-                               placeholder="متن خود را اینجا بنویسید و enter بزنید ...">
+                        <form action="{{ route('home.products.all') }}">
+                            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search"
+                                   placeholder="متن خود را اینجا بنویسید و enter بزنید ...">
+                        </form>
+
                     </div>
                 </div>
 
