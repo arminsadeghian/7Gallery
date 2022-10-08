@@ -148,12 +148,13 @@
                 <img src="/assets/images/icons/icon-close2.png" alt="CLOSE">
             </button>
 
-            <form class="wrap-search-header flex-w p-l-15">
+            <form class="#" action="{{ route('home.products.all') }}">
                 <button class="flex-c-m trans-04">
                     <i class="zmdi zmdi-search"></i>
                 </button>
                 <input class="plh3" type="text" name="search" placeholder="متن خود را اینجا بنویسید ...">
             </form>
+
         </div>
     </div>
 </header>
