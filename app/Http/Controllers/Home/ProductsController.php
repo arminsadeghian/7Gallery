@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Exceptions\FilterClassNotFoundException;
-use App\Exceptions\FilterMethodNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
@@ -18,7 +16,7 @@ class ProductsController extends Controller
         $products = null;
 
         if (isset($request->filter, $request->action)) {
-            $products = $this->findFilter($request?->filter, $request?->action);
+            $products = $this->findFilter($request?->filter, $request?->action) ?? Product::all();
         } else if ($request->has('search')) {
             $products = Product::where('title', 'LIKE', '%' . $request->input('search') . '%')->get();
         } else {
@@ -37,22 +35,18 @@ class ProductsController extends Controller
         return view('frontend.products.show', compact('product', 'relatedProducts'));
     }
 
-    /**
-     * @throws FilterClassNotFoundException
-     * @throws FilterMethodNotFoundException
-     */
     private function findFilter(string|null $className, string|null $methodName)
     {
         $className = self::BASE_FILTERS_NAMESPACE . (ucfirst($className) . 'Filter');
 
         if (!class_exists($className)) {
-            throw new FilterClassNotFoundException();
+            return null;
         }
 
         $object = new $className;
 
         if (!method_exists($object, $methodName)) {
-            throw new FilterMethodNotFoundException();
+            return null;
         }
 
         return $object->{$methodName}();
