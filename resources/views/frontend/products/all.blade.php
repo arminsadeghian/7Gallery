@@ -80,27 +80,28 @@
                             </div>
 
                             <ul>
+
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                        همه
+                                    <a href="?price=100000to500000" class="filter-link stext-106 trans-04">
+                                        100 هزار تومان الی 500 هزار تومان
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        ۱۰ الی ۱۰۰ هزار تومان
+                                    <a href="?price=500000to1000000" class="filter-link stext-106 trans-04">
+                                        500 هزار تومان الی 1 میلیون تومان
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        ۱۰۱ الی ۲۰۰ هزار تومان
+                                    <a href="?price=1000000to5000000" class="filter-link stext-106 trans-04">
+                                        1 میلیون تومان الی 5 میلیون تومان
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        ۲۰۱ الی ۳۰۰ هزار تومان
+                                    <a href="?price=5000000to10000000" class="filter-link stext-106 trans-04">
+                                        5 میلیون تومان الی 10 میلیون تومان
                                     </a>
                                 </li>
                             </ul>

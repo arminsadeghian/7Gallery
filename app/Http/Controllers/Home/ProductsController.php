@@ -19,6 +19,9 @@ class ProductsController extends Controller
             $products = $this->findFilter($request?->filter, $request?->action) ?? Product::all();
         } else if ($request->has('search')) {
             $products = Product::where('title', 'LIKE', '%' . $request->input('search') . '%')->get();
+        } else if ($request->has('price')) {
+            $price = explode('to', $request->price);
+            $products = Product::whereBetween('price', [$price[0], $price[1]])->get();
         } else {
             $products = Product::all();
         }
