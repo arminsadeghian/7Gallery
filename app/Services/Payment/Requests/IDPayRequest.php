@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Services\Payment\Requests;
+
+use App\Services\Payment\Contracts\RequestInterface;
+
+class IDPayRequest implements RequestInterface
+{
+
+    private $user;
+    private $amount;
+
+    public function __construct($data)
+    {
+        $this->user = $data['user'];
+        $this->amount = $data['amount'];
+    }
+
+    public function request()
+    {
+        // TODO: Implement request() method.
+    }
+}
