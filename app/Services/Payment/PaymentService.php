@@ -4,7 +4,6 @@ namespace App\Services\Payment;
 
 use App\Services\Payment\Contracts\RequestInterface;
 use App\Services\Payment\Exceptions\ProviderClassNotFoundException;
-use App\Services\Payment\Requests\IDPayRequest;
 
 class PaymentService
 {
@@ -25,9 +24,6 @@ class PaymentService
         }
     }
 
-    /**
-     * @throws ProviderClassNotFoundException
-     */
     private function findProvider()
     {
         $className = self::PROVIDERS_BASE_NAMESPACE . $this->providerName;

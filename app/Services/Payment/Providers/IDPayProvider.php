@@ -11,7 +11,7 @@ class IDPayProvider extends BaseProvider implements Payable, Verifiable
 
     public function pay()
     {
-        // TODO: Implement pay() method.
+        dd('Hi From IDPay');
     }
 
     public function verify()

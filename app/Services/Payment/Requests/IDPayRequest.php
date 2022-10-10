@@ -20,4 +20,16 @@ class IDPayRequest implements RequestInterface
     {
         // TODO: Implement request() method.
     }
+
+    public function getUser(): mixed
+    {
+        return $this->user;
+    }
+
+    public function getAmount(): mixed
+    {
+        return $this->amount;
+    }
+
+
 }
