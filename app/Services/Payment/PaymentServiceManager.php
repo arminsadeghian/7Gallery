@@ -18,7 +18,7 @@ class PaymentServiceManager
     public function pay()
     {
         try {
-            return $this->findProvider()->pay();
+            return $this->findProvider()->payment();
         } catch (ProviderClassNotFoundException $e) {
             echo $e->getMessage();
         }

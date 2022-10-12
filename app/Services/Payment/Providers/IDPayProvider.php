@@ -25,14 +25,20 @@ class IDPayProvider extends BaseProvider implements PaymentInterface, VerifyInte
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
-            'X-API-KEY: ' . $this->request->getUser()->email . ' ',
+            'X-API-KEY: ' . $this->request->getApiKey() . ' ',
             'X-SANDBOX: 1'
         ));
 
         $result = curl_exec($ch);
         curl_close($ch);
 
-        var_dump($result);
+        $result = json_decode($result, true);
+
+        if (isset($result['error_code'])) {
+            throw new \InvalidArgumentException($result['error_message']);
+        }
+
+        return redirect()->away($result['link']);
     }
 
     public function verify()

@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Services\Payment\PaymentServiceManager;
 use App\Services\Payment\Requests\IDPayRequest;
 use Exception;
+use http\Exception\InvalidArgumentException;
 use Illuminate\Support\Facades\Cookie;
 
 class PaymentController extends Controller
@@ -29,6 +30,11 @@ class PaymentController extends Controller
 
         try {
             $orderItems = json_decode(Cookie::get('7Gallery_cart'), true);
+
+            if (count($orderItems) <= 0) {
+                throw new \InvalidArgumentException('سبد خرید شما خالی است');
+            }
+
             $products = Product::findMany(array_keys($orderItems));
             $productsTotalPrice = $products->sum('price');
             $refCode = sha1(time() . rand(1111, 9999));
@@ -63,7 +69,8 @@ class PaymentController extends Controller
             $idPayRequest = new IDPayRequest([
                 'user' => $createdUser,
                 'amount' => $productsTotalPrice,
-                'orderId' => $createdOrder->id
+                'orderId' => $createdOrder->id,
+                'api_key' => config('services.gateways.idpay.api_key')
             ]);
 
             $paymentService = new PaymentServiceManager(PaymentServiceManager::IDPAY, $idPayRequest);
