@@ -22,8 +22,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/payment', [PaymentController::class, 'pay']);
-
 Route::prefix('')->group(function () {
     Route::get('', [HomeProductsController::class, 'index'])->name('home.products.all');
     Route::get('{product_id}/show', [HomeProductsController::class, 'show'])->name('home.products.show');
@@ -71,4 +69,9 @@ Route::prefix('admin/')->group(function () {
         Route::get('all', [PaymentsController::class, 'all'])->name('admin.payments.all');
     });
 
+});
+
+Route::prefix('payment')->group(function () {
+    Route::post('pay', [PaymentController::class, 'pay'])->name('payment.pay');
+    Route::post('callback', [PaymentController::class, 'callback'])->name('payment.callback');
 });

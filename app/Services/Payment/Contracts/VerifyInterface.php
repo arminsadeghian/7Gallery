@@ -2,7 +2,7 @@
 
 namespace App\Services\Payment\Contracts;
 
-interface Verifiable
+interface VerifyInterface
 {
     public function verify();
 }

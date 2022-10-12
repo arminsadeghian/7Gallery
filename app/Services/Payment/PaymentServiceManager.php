@@ -5,7 +5,7 @@ namespace App\Services\Payment;
 use App\Services\Payment\Contracts\RequestInterface;
 use App\Services\Payment\Exceptions\ProviderClassNotFoundException;
 
-class PaymentService
+class PaymentServiceManager
 {
     private const PROVIDERS_BASE_NAMESPACE = "App\\Services\\Payment\\Providers\\";
     public const IDPAY = 'IDPayProvider';
@@ -24,6 +24,9 @@ class PaymentService
         }
     }
 
+    /**
+     * @throws ProviderClassNotFoundException
+     */
     private function findProvider()
     {
         $className = self::PROVIDERS_BASE_NAMESPACE . $this->providerName;

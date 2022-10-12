@@ -17,7 +17,10 @@
     </div>
 
     <!-- Shoping Cart -->
-    <form class="bg0 p-t-75 p-b-85">
+    <div class="bg0 p-t-75 p-b-85">
+
+        @include('errors.message')
+
         <div class="container">
             <div class="row">
 
@@ -57,24 +60,33 @@
                             پرداخت و تکمیل خرید
                         </h4>
 
-                        <form action="" method="post">
+                        <form action="{{ route('payment.pay') }}" method="post">
+                            @csrf
                             <div class="flex-w flex-t">
                                 <div class="w-full">
                                     <div class="p-t-15">
 
                                         <div class="bor8 bg0 m-b-12">
-                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="family"
-                                                   placeholder="نام و نام خانوادگی"
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
+                                                   name="first_name"
+                                                   placeholder="نام"
                                                    autocomplete="off">
                                         </div>
                                         <div class="bor8 bg0 m-b-12">
-                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="mobile"
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
+                                                   name="last_name"
+                                                   placeholder="نام خانوادگی"
+                                                   autocomplete="off">
+                                        </div>
+                                        <div class="bor8 bg0 m-b-12">
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="number"
+                                                   name="mobile"
                                                    placeholder="موبایل"
                                                    autocomplete="off">
                                         </div>
 
                                         <div class="bor8 bg0 m-b-22">
-                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="email"
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="email" name="email"
                                                    placeholder="ایمیل"
                                                    autocomplete="off">
                                         </div>
@@ -109,6 +121,6 @@
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 
 @endsection

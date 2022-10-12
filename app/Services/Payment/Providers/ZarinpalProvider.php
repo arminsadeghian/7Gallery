@@ -3,13 +3,13 @@
 namespace App\Services\Payment\Providers;
 
 use App\Services\Payment\Contracts\BaseProvider;
-use App\Services\Payment\Contracts\Payable;
-use App\Services\Payment\Contracts\Verifiable;
+use App\Services\Payment\Contracts\PaymentInterface;
+use App\Services\Payment\Contracts\VerifyInterface;
 
-class ZarinpalProvider extends BaseProvider implements Payable, Verifiable
+class ZarinpalProvider extends BaseProvider implements PaymentInterface, VerifyInterface
 {
 
-    public function pay()
+    public function payment()
     {
         // TODO: Implement pay() method.
     }
