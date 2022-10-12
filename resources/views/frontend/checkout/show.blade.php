@@ -69,26 +69,22 @@
                                         <div class="bor8 bg0 m-b-12">
                                             <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
                                                    name="first_name"
-                                                   placeholder="نام"
-                                                   autocomplete="off">
+                                                   placeholder="نام">
                                         </div>
                                         <div class="bor8 bg0 m-b-12">
                                             <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
                                                    name="last_name"
-                                                   placeholder="نام خانوادگی"
-                                                   autocomplete="off">
+                                                   placeholder="نام خانوادگی">
                                         </div>
                                         <div class="bor8 bg0 m-b-12">
                                             <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="number"
                                                    name="mobile"
-                                                   placeholder="موبایل"
-                                                   autocomplete="off">
+                                                   placeholder="موبایل">
                                         </div>
 
                                         <div class="bor8 bg0 m-b-22">
                                             <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="email" name="email"
-                                                   placeholder="ایمیل"
-                                                   autocomplete="off">
+                                                   placeholder="ایمیل">
                                         </div>
 
                                     </div>

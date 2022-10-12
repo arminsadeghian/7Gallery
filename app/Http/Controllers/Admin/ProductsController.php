@@ -29,7 +29,7 @@ class ProductsController extends Controller
     {
         $validatedData = $request->validated();
 
-        $admin = User::where('email', 'admin@gmail.com')->first();
+        $admin = User::where('email', 'armin@gmail.com')->first();
 
         $createdProduct = Product::create([
             'title' => $validatedData['title'],
@@ -38,6 +38,8 @@ class ProductsController extends Controller
             'price' => $validatedData['price'],
             'owner_id' => $admin->id,
         ]);
+
+        return $this->uploadImage($createdProduct, $validatedData);
 
     }
 

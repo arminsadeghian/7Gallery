@@ -8,10 +8,11 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
-use App\Services\Payment\PaymentServiceManager;
+use App\Services\Payment\PaymentService;
 use App\Services\Payment\Requests\IDPayRequest;
+use App\Services\Payment\Requests\IDPayVerifyRequest;
 use Exception;
-use http\Exception\InvalidArgumentException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
 class PaymentController extends Controller
@@ -62,18 +63,17 @@ class PaymentController extends Controller
                 'order_id' => $createdOrder->id,
                 'status' => 'unpaid',
                 'gateway' => 'idpay',
-                'res_id' => $resId,
-                'ref_id' => $refId,
+                'ref_code' => $refCode,
             ]);
 
             $idPayRequest = new IDPayRequest([
                 'user' => $createdUser,
                 'amount' => $productsTotalPrice,
-                'orderId' => $createdOrder->id,
+                'orderId' => $refCode,
                 'api_key' => config('services.gateways.idpay.api_key')
             ]);
 
-            $paymentService = new PaymentServiceManager(PaymentServiceManager::IDPAY, $idPayRequest);
+            $paymentService = new PaymentService(PaymentService::IDPAY, $idPayRequest);
 
             return $paymentService->pay();
 
@@ -83,8 +83,42 @@ class PaymentController extends Controller
 
     }
 
-    public function callback()
+    public function callback(Request $request)
     {
+        $paymentInfo = $request->all();
+        $idPayVerifyRequest = new IDPayVerifyRequest([
+            'id' => $paymentInfo['id'],
+            'orderId' => $paymentInfo['order_id'],
+            'api_key' => config('services.gateways.idpay.api_key')
+        ]);
+
+        $paymentService = new PaymentService(PaymentService::IDPAY, $idPayVerifyRequest);
+        $result = $paymentService->verify();
+
+        if ($result['status'] == false) {
+            return redirect()->route('home.checkout.show')->with('failed', 'پرداخت انجام نشد');
+        }
+
+//        if ($result['status'] == 101) {
+//            return redirect()->route('home.checkout.show')->with('failed', 'پرداخت قبلا انجام شده است');
+//        }
+
+        $currentPayment = Payment::where('ref_code', $result['data']['order_id'])->first();
+
+        $currentPayment->update([
+            'status' => 'paid',
+            'res_id' => $result['data']['track_id']
+        ]);
+
+        $currentPayment->order()->update([
+            'status' => 'paid',
+        ]);
+
+        $reservedImages = $currentPayment->order->orderItems->map(function ($orderItem) {
+            return $orderItem->product->source_url;
+        });
+
+        dd($reservedImages->toArray());
 
     }
 

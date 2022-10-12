@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cookie;
 
 class CartController extends Controller
 {
-    public const COOKIE_EXPIRE_TIME = 60; // Minute
+    public const COOKIE_EXPIRE_TIME = 60 * 24; // Minute
     public const COOKIE_NAME = '7Gallery_cart';
 
     public function addToCart(int $productId)
