@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedInteger('amount');
-            $table->string('ref_code');
+            $table->string('reference_code');
             $table->enum('status', ['paid', 'unpaid']);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

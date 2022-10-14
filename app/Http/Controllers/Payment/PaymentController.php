@@ -38,12 +38,12 @@ class PaymentController extends Controller
 
             $products = Product::findMany(array_keys($orderItems));
             $productsTotalPrice = $products->sum('price');
-            $refCode = sha1(time() . rand(1111, 9999));
+            $referenceCode = sha1(time() . rand(1111, 9999));
 
             $createdOrder = Order::create([
                 'user_id' => $createdUser->id,
                 'amount' => $productsTotalPrice,
-                'ref_code' => $refCode,
+                'reference_code' => $referenceCode,
                 'status' => 'unpaid'
             ]);
 
@@ -56,20 +56,17 @@ class PaymentController extends Controller
 
             $createdOrder->orderItems()->createMany($orderItemsForCreatedOrder->toArray());
 
-            $resId = sha1(time() . rand(1111, 9999));
-            $refId = sha1(time() . rand(1111, 9999));
-
-            $createdPayment = Payment::create([
+            Payment::create([
                 'order_id' => $createdOrder->id,
                 'status' => 'unpaid',
                 'gateway' => 'idpay',
-                'ref_code' => $refCode,
+                'reference_code' => $referenceCode,
             ]);
 
             $idPayRequest = new IDPayRequest([
                 'user' => $createdUser,
                 'amount' => $productsTotalPrice,
-                'orderId' => $refCode,
+                'orderId' => $referenceCode,
                 'api_key' => config('services.gateways.idpay.api_key')
             ]);
 
@@ -103,11 +100,11 @@ class PaymentController extends Controller
 //            return redirect()->route('home.checkout.show')->with('failed', 'پرداخت قبلا انجام شده است');
 //        }
 
-        $currentPayment = Payment::where('ref_code', $result['data']['order_id'])->first();
+        $currentPayment = Payment::where('reference_code', $result['data']['order_id'])->first();
 
         $currentPayment->update([
             'status' => 'paid',
-            'res_id' => $result['data']['track_id']
+            'transaction_id' => $result['data']['track_id']
         ]);
 
         $currentPayment->order()->update([

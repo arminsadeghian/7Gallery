@@ -20,8 +20,8 @@ return new class extends Migration {
 
             $table->enum('status', ['paid', 'unpaid']);
             $table->enum('gateway', ['zarnipal', 'idpay']);
-            $table->unsignedInteger('res_id')->nullable();
-            $table->string('ref_code')->nullable();
+            $table->unsignedInteger('transaction_id')->nullable();
+            $table->string('reference_code')->nullable();
             $table->timestamps();
         });
     }
