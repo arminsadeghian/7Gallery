@@ -70,8 +70,8 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('admin.users.all') }}" class="nav-link">
-                                <i class="fa fa-list nav-icon"></i>
-                                <p>لیست</p>
+                                    <i class="fa fa-list nav-icon"></i>
+                                    <p>لیست</p>
                                 </a>
                             </li>
                         </ul>
@@ -86,6 +86,12 @@
                         <a href="{{ route('admin.payments.all') }}" class="nav-link">
                             <i class="nav-icon fa fa-dollar"></i>
                             <p class="text">پرداخت ها</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('logout') }}" class="nav-link">
+                            <i class="nav-icon fa fa-lock"></i>
+                            <p class="text">خروج از پنل</p>
                         </a>
                     </li>
                 </ul>

@@ -6,7 +6,6 @@
     <title>ورود به پنل ادمین</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -17,7 +16,6 @@
     <link rel="stylesheet" href="/assets/admin/plugins/iCheck/square/blue.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
     <!-- bootstrap rtl -->
     <link rel="stylesheet" href="/assets/admin/dist/css/bootstrap-rtl.min.css">
     <!-- template rtl version -->
@@ -38,18 +36,18 @@
             <form action="{{ route('login') }}" method="post">
                 @csrf
                 <input type="email" name="email" class="form-control mb-2" placeholder="ایمیل">
-                <input type="password" name="password" class="form-control mb-4" placeholder="رمز عبور">
+                <input type="password" name="password" class="form-control mb-4" placeholder="پسورد">
                 <div class="row">
                     <div class="col-8">
                         <div class="checkbox icheck">
                             <label>
-                                <input type="checkbox"> مرا به خاطر بسپار
+                                <input type="checkbox" name="remember"> مرا به خاطر بسپار
                             </label>
                         </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">ورود</button>
+                        <button type="submit" class="btn btn-primary btn-block">ورود</button>
                     </div>
                     <!-- /.col -->
                 </div>

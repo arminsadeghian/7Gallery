@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController as AdminProductsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\CheckoutController;
 use App\Http\Controllers\Home\ProductsController as HomeProductsController;
@@ -30,7 +33,11 @@ Route::prefix('')->group(function () {
     Route::get('checkout/cart', [CheckoutController::class, 'show'])->name('home.checkout.show');
 });
 
-Route::prefix('admin/')->group(function () {
+Route::prefix('admin/')->middleware('auth')->group(function () {
+
+    Route::get('dashboard', function () {
+        return view('admin.dashboard.all');
+    });
 
     Route::prefix('categories/')->group(function () {
         Route::get('all', [CategoriesController::class, 'all'])->name('admin.categories.all');
@@ -75,3 +82,10 @@ Route::prefix('payment')->group(function () {
     Route::post('pay', [PaymentController::class, 'pay'])->name('payment.pay');
     Route::post('callback', [PaymentController::class, 'callback'])->name('payment.callback');
 });
+
+
+// Auth Routes
+Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+Route::get('/login', [LoginController::class, 'loginView'])->name('login.view');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
