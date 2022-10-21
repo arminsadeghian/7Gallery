@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Users\StoreRequest;
 use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -28,7 +29,7 @@ class UsersController extends Controller
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
             'mobile' => $validatedData['mobile'],
-            'password' => $validatedData['password'],
+            'password' => Hash::make($validatedData['password']),
             'role' => $validatedData['role'],
         ]);
 
