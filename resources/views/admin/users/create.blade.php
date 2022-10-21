@@ -67,6 +67,13 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label>پسورد</label>
+                                                <input type="password" class="form-control" name="password"
+                                                       placeholder="پسورد را وارد کنید">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label>نقش کاربری</label>
                                                 <select class="form-control" name="role">
                                                     <option value="user">کاربر عادی</option>

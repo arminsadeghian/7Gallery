@@ -28,6 +28,7 @@ class UsersController extends Controller
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
             'mobile' => $validatedData['mobile'],
+            'password' => $validatedData['password'],
             'role' => $validatedData['role'],
         ]);
 
